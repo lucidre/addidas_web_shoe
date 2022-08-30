@@ -83,13 +83,35 @@ class DetailsPage extends StatelessWidget {
                         Positioned(
                           child: Transform.rotate(
                             angle: pi / 4,
-                            child: Container(
-                              width: 30,
-                              height: 500,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: addidasShoe.backgroundColor2,
-                              ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 30,
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  height: 400,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: addidasShoe.backgroundColor2,
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  height: 500,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: addidasShoe.backgroundColor2,
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  height: 400,
+                                  margin: const EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: addidasShoe.backgroundColor2,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
