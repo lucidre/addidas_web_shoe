@@ -9,42 +9,17 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) {
     elevation: 0,
     centerTitle: true,
     title: Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        //
-        Container(
-          padding: const EdgeInsets.only(right: 20),
-          child: CustomText(
-            text: "Women",
-            color: light.withOpacity(0.6),
-          ),
+        const SizedBox(
+          width: 10,
         ),
-        Container(
-          padding: const EdgeInsets.only(),
-          child: Column(
-            children: [
-              Container(
-                width: 5,
-                height: 5,
-                margin: const EdgeInsets.only(bottom: 3),
-                decoration: BoxDecoration(
-                  color: light,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              CustomText(
-                text: "Men",
-                color: light,
-              ),
-            ],
+        Padding(
+          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+          child: Image.asset(
+            "assets/logo/logo_white.png",
+            height: 30,
           ),
-        ),
-        const Spacer(),
-        CustomText(
-          text: 'Dash',
-          color: light,
-          size: 14,
-          fontWeight: FontWeight.bold,
         ),
         const Spacer(),
         Container(
@@ -55,18 +30,18 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) {
             size: 16,
           ),
         ),
-
         Container(
           padding: const EdgeInsets.only(),
           child: Icon(
-            Icons.settings_rounded,
+            Icons.person_rounded,
             color: light,
             size: 16,
           ),
         ),
       ],
     ),
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.black,
+    // backgroundColor: Colors.transparent,
     iconTheme: IconThemeData(color: dark),
   );
 }

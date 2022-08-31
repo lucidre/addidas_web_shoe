@@ -57,4 +57,13 @@ List<AddidasShoe> allShoes = [
     backgroundColor: const Color(0xFF26482A),
     textColor: const Color(0xFFDADAD9),
   ),
+  AddidasShoe(
+    imageLocation: 'assets/shoes/shoe5.png',
+    subTitle: 'Originals',
+    id: 4,
+    backgroundColor2: Colors.black,
+    mainTitle: 'NMD XR1',
+    backgroundColor: const Color(0xFF1c1c1f),
+    textColor: Colors.white,
+  ),
 ];

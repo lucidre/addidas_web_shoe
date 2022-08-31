@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   google_fonts: ^3.0.1
+  video_player: ^2.4.7
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -52,6 +53,7 @@ flutter:
     - assets/icons/
     - assets/logo/
     - assets/shoes/
+    - assets/video/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

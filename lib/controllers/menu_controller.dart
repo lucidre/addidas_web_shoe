@@ -1,52 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/* class MenuController extends GetxController {
+class MenuController extends GetxController {
   static MenuController instance = Get.find();
-  var activeItem = OverViewPageRoute.obs;
-  var hoverItem = "".obs;
+  var activeItemIndex = 0.obs;
+  var hoverItem = false.obs;
 
-  changeActiveItemTo(String itemName) {
-    activeItem.value = itemName;
+  changeActiveItemTo(int index) {
+    activeItemIndex.value = index;
   }
 
-  onHover(String itemName) {
-    if (!isActive(itemName)) hoverItem.value = itemName;
+  onHover(bool isHovering) {
+    hoverItem.value = isHovering;
   }
 
-  bool isActive(String itemName) => activeItem.value == itemName;
-  bool isHovering(String itemName) => hoverItem.value == itemName;
-
-  Widget returnIconFor(String itemName) {
-    switch (itemName) {
-      case OverViewPageRoute:
-        return _customIcon(
-          Icons.trending_up_rounded,
-          itemName,
-        );
-      case DriversPageRoute:
-        return _customIcon(Icons.drive_eta_rounded, itemName);
-      case ClientsPageRoute:
-        return _customIcon(Icons.people_alt_outlined, itemName);
-      case AuthenticationPageRoute:
-        return _customIcon(Icons.exit_to_app_rounded, itemName);
-      default:
-        return _customIcon(Icons.exit_to_app_rounded, itemName);
-    }
-  }
-
-  Widget _customIcon(IconData icon, String itemName) {
-    if (isActive(itemName)) {
-      return Icon(
-        icon,
-        size: 22,
-        color: dark,
-      );
-    }
-    return Icon(
-      icon,
-      color: isHovering(itemName) ? dark : lightGrey,
-    );
-  }
+  bool isActive(int index) => activeItemIndex.value == index;
 }
- */
+
+class MenuItems {
+  final String title;
+  final IconData icons;
+  final int index;
+
+  MenuItems(this.title, this.icons, this.index);
+}
+
+final mainMenuItems = [
+  MenuItems("Home", Icons.home_rounded, 0),
+  MenuItems("News", Icons.newspaper_rounded, 1),
+  MenuItems("Search", Icons.search_rounded, 2),
+  MenuItems("Shop", Icons.shop_2_rounded, 3),
+];

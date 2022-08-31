@@ -4,7 +4,7 @@ import 'package:addidas_web_shoe/models/shoe.dart';
 import 'package:addidas_web_shoe/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class HomeItem extends StatelessWidget {
+class HomeItem extends StatefulWidget {
   final AddidasShoe addidasShoe;
   final Function(bool) onHover;
   final VoidCallback onTap;
@@ -17,96 +17,153 @@ class HomeItem extends StatelessWidget {
       required this.onTap})
       : super(key: key);
 
+  @override
+  State<HomeItem> createState() => _HomeItemState();
+}
+
+class _HomeItemState extends State<HomeItem> {
+  bool heroAnimationCompleted = false;
   final Duration _duration = const Duration(milliseconds: 500);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: isExpanded ? 2 : 1,
+      flex: widget.isExpanded ? 2 : 1,
       child: AnimatedSize(
         duration: _duration,
-        curve: Curves.fastOutSlowIn,
+        curve: Curves.easeInSine,
         child: buildBody(context),
       ),
     );
   }
 
-  Container buildBody(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: addidasShoe.backgroundColor,
-      child: InkWell(
-        splashColor: Colors.transparent,
-        onTap: () => onTap(),
-        onHover: (isActive) {
-          onHover(isActive);
-        },
-        child: buildExpandedBody(context),
-      ),
+  Widget buildBody(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final itemWidth = constraints.maxWidth;
+      return Container(
+        width: double.infinity,
+        height: 600,
+        color: widget.addidasShoe.backgroundColor,
+        child: InkWell(
+          splashColor: Colors.transparent,
+          onTap: () => widget.onTap(),
+          onHover: (isActive) {
+            widget.onHover(isActive);
+          },
+          child: buildExpandedBody(
+            context,
+            itemWidth,
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget buildExpandedBody(BuildContext context, double itemWidth) {
+    return Stack(
+      children: [
+        buildImage(itemWidth),
+        buildText(),
+      ],
     );
   }
 
-  Widget buildExpandedBody(BuildContext context) {
-    final itemWidth = MediaQuery.of(context).size.width / 4;
-    return Stack(
-      children: [
-        AnimatedPositioned(
-          duration: _duration,
-          right: isExpanded ? 20 : -itemWidth / 2,
-          top: 0,
-          bottom: 0,
-          child: AnimatedContainer(
-            duration: _duration,
-            alignment: isExpanded ? Alignment.center : Alignment.centerRight,
-            child: Transform.scale(
-              scale: isExpanded ? 1.8 : 1,
-              child: Transform.rotate(
-                angle: pi / 4,
-                child: Hero(
-                  tag: addidasShoe.id.toString(),
-                  child: Image.asset(
-                    addidasShoe.imageLocation,
-                    fit: BoxFit.fitWidth,
-                    width: itemWidth + (isExpanded ? 0 : 50),
-                    scale: isExpanded ? 1 : 1.2,
-                  ),
-                ),
+  AnimatedPositioned buildImage(double itemWidth) {
+    return AnimatedPositioned(
+      duration: _duration,
+      right: widget.isExpanded ? 20 : -itemWidth / 2,
+      top: 0,
+      bottom: 0,
+      child: AnimatedContainer(
+        duration: _duration,
+        alignment: widget.isExpanded ? Alignment.center : Alignment.centerRight,
+        child: Hero(
+          tag: widget.addidasShoe.id.toString(),
+          flightShuttleBuilder: (flightContext, animation, flightDirection,
+              fromHeroContext, toHeroContext) {
+            animation.addStatusListener((status) {
+              if (status == AnimationStatus.completed) {
+                setState(() => heroAnimationCompleted = true);
+              }
+              if (status == AnimationStatus.dismissed) {
+                setState(() => heroAnimationCompleted = false);
+              }
+            });
+
+            return RotationTransition(
+              turns: animation.drive(
+                Tween<double>(
+                        begin: (heroAnimationCompleted) ? 1.0 : -0.8,
+                        end: (heroAnimationCompleted) ? 0.8 : -1.0)
+                    .chain(CurveTween(
+                        curve: (heroAnimationCompleted)
+                            ? const Cubic(0.4, 0.90, 1.0, 1.250).flipped
+                            : const Cubic(0.4, 0.90, 1.0, 1.250))),
+              ),
+              child: toHeroContext.widget,
+            );
+          },
+          child: Transform.scale(
+            scale: widget.isExpanded ? 1 : 1,
+            child: Transform.rotate(
+              angle: pi / 4,
+              child: Image.asset(
+                widget.addidasShoe.imageLocation,
+                fit: BoxFit.fitWidth,
+                width: itemWidth + (widget.isExpanded ? 0 : 50),
+                scale: widget.isExpanded ? 1.2 : 1,
               ),
             ),
           ),
         ),
-        Positioned(
-          bottom: 50,
-          left: 50,
-          child: AnimatedSwitcher(
-            duration: _duration,
-            child: isExpanded
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: addidasShoe.subTitle,
-                        fontWeight: FontWeight.w600,
-                        color: addidasShoe.textColor,
-                        size: 14,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      CustomText(
-                        text: addidasShoe.mainTitle,
-                        color: addidasShoe.textColor,
-                        fontWeight: FontWeight.w600,
-                        size: 14,
-                      ),
-                    ],
-                  )
-                : const SizedBox(),
-          ),
-        ),
-      ],
+      ),
+    );
+  }
+
+  Widget buildText() {
+    return Positioned(
+      bottom: widget.isExpanded ? 50 : 0,
+      top: 0,
+      left: widget.isExpanded ? 50 : 10,
+      child: AnimatedContainer(
+        duration: _duration,
+        alignment:
+            widget.isExpanded ? Alignment.bottomCenter : Alignment.center,
+        child: widget.isExpanded
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    text: widget.addidasShoe.subTitle,
+                    fontWeight: FontWeight.bold,
+                    color: widget.addidasShoe.textColor,
+                    size: 24,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomText(
+                    text: widget.addidasShoe.mainTitle,
+                    color: widget.addidasShoe.textColor,
+                    fontWeight: FontWeight.bold,
+                    size: 24,
+                  ),
+                ],
+              )
+            : RotatedBox(
+                quarterTurns: 1,
+                child: Hero(
+                  tag: widget.addidasShoe.subTitle,
+                  child: CustomText(
+                    text: widget.addidasShoe.subTitle,
+                    fontWeight: FontWeight.bold,
+                    color: widget.addidasShoe.textColor,
+                    size: 24,
+                  ),
+                ),
+              ),
+      ),
     );
   }
 }

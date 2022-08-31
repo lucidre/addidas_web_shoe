@@ -1,6 +1,7 @@
 import 'package:addidas_web_shoe/constants/style.dart';
-import 'package:addidas_web_shoe/helpers/local_navigator.dart';
+// import 'package:addidas_web_shoe/helpers/local_navigator.dart';
 import 'package:addidas_web_shoe/helpers/responsiveness.dart';
+import 'package:addidas_web_shoe/pages/home/home_large.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/top_nav.dart';
@@ -13,11 +14,12 @@ class SiteLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: light,
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       key: scaffoldKey,
       appBar: topNavigationBar(context, scaffoldKey),
-      body: ResponsiveWidget(
-        largeScreen: localNavigator(),
+      body: const ResponsiveWidget(
+        // largeScreen: localNavigator(),
+        largeScreen: HomePage(),
       ),
     );
   }

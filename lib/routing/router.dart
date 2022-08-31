@@ -11,7 +11,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case homeRoute:
       return _getPageRoute(
-        const HomeLargePage(),
+        const HomePage(),
         arguement: settings.arguments,
       );
     case detailsRoute:
