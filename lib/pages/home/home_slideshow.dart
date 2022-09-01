@@ -1,11 +1,13 @@
 import 'package:addidas_web_shoe/controllers/home_controller.dart';
 import 'package:addidas_web_shoe/helpers/responsiveness.dart';
 import 'package:addidas_web_shoe/models/shoe.dart';
-import 'package:addidas_web_shoe/pages/details/details.dart';
+import 'package:addidas_web_shoe/pages/details/details_large.dart';
+import 'package:addidas_web_shoe/pages/details/details_small.dart';
+import 'package:addidas_web_shoe/pages/home/widget/home_item_small.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'widget/home_item.dart';
+import 'widget/home_item_large.dart';
 
 class HomeSlideShow extends StatelessWidget {
   const HomeSlideShow({super.key});
@@ -35,7 +37,10 @@ class HomeSlideShow extends StatelessWidget {
         transitionDuration: const Duration(milliseconds: 500),
         reverseTransitionDuration: const Duration(milliseconds: 600),
         settings: RouteSettings(arguments: addidasShoe),
-        pageBuilder: (_, __, ___) => const DetailsPage(),
+        pageBuilder: (_, __, ___) => const ResponsiveWidget(
+          largeScreen: DetailsPageLarge(),
+          smallScreen: DetailsPageSmall(),
+        ),
         transitionsBuilder: (_, anim1, __, child) => FadeTransition(
           opacity: Tween<double>(begin: 0.0, end: 1.0).animate(anim1),
           child: child,
@@ -58,7 +63,7 @@ class _HomeSlideShowLarge extends StatelessWidget {
       return Row(
         children: allShoes
             .map(
-              (addidasShoe) => HomeItem(
+              (addidasShoe) => HomeItemLarge(
                 addidasShoe: addidasShoe,
                 isExpanded: controller.isItemExpanded(addidasShoe),
                 onTap: () => onTap(addidasShoe),
@@ -92,7 +97,7 @@ class _HomeSlideShowSmall extends StatelessWidget {
         itemBuilder: (ctx, index) {
           final addidasShoe = allShoes[index];
           return GetX<HomeController>(builder: (controller) {
-            return HomeItem(
+            return HomeItemSmall(
               addidasShoe: addidasShoe,
               isExpanded: controller.isItemExpanded(addidasShoe),
               onTap: () => onTap(addidasShoe),

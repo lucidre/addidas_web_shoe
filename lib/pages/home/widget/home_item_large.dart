@@ -4,12 +4,12 @@ import 'package:addidas_web_shoe/models/shoe.dart';
 import 'package:addidas_web_shoe/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
-class HomeItem extends StatefulWidget {
+class HomeItemLarge extends StatefulWidget {
   final AddidasShoe addidasShoe;
   final Function(bool) onHover;
   final VoidCallback onTap;
   final bool isExpanded;
-  const HomeItem(
+  const HomeItemLarge(
       {Key? key,
       required this.addidasShoe,
       required this.onHover,
@@ -18,10 +18,10 @@ class HomeItem extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<HomeItem> createState() => _HomeItemState();
+  State<HomeItemLarge> createState() => _HomeItemLargeState();
 }
 
-class _HomeItemState extends State<HomeItem> {
+class _HomeItemLargeState extends State<HomeItemLarge> {
   bool heroAnimationCompleted = false;
   final Duration _duration = const Duration(milliseconds: 500);
 

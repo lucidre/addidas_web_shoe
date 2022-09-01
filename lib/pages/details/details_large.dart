@@ -5,14 +5,14 @@ import 'package:addidas_web_shoe/widgets/custom_text.dart';
 import 'package:addidas_web_shoe/widgets/top_nav.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+class DetailsPageLarge extends StatefulWidget {
+  const DetailsPageLarge({Key? key}) : super(key: key);
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<DetailsPageLarge> createState() => _DetailsPageLargeState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsPageLargeState extends State<DetailsPageLarge> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
