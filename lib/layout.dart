@@ -1,7 +1,6 @@
 import 'package:addidas_web_shoe/constants/style.dart';
-// import 'package:addidas_web_shoe/helpers/local_navigator.dart';
-import 'package:addidas_web_shoe/helpers/responsiveness.dart';
-import 'package:addidas_web_shoe/pages/home/home_large.dart';
+import 'package:addidas_web_shoe/pages/home/home.dart';
+import 'package:addidas_web_shoe/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/top_nav.dart';
@@ -14,13 +13,12 @@ class SiteLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: light,
-      // extendBodyBehindAppBar: true,
       key: scaffoldKey,
-      appBar: topNavigationBar(context, scaffoldKey),
-      body: const ResponsiveWidget(
-        // largeScreen: localNavigator(),
-        largeScreen: HomePage(),
+      drawer: const Drawer(
+        child: AppDrawer(),
       ),
+      appBar: topNavigationBar(context, scaffoldKey),
+      body: const HomePage(),
     );
   }
 }

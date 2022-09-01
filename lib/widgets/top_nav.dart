@@ -1,26 +1,51 @@
+import 'package:addidas_web_shoe/helpers/responsiveness.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/style.dart';
-import 'custom_text.dart';
 
 AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) {
   return AppBar(
     automaticallyImplyLeading: false,
     elevation: 0,
-    centerTitle: true,
+
     title: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: (ResponsiveWidget.isSmallScreen(context)) ? 5 : 10,
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-          child: Image.asset(
-            "assets/logo/logo_white.png",
-            height: 30,
+        if (ResponsiveWidget.isSmallScreen(context))
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 5.0,
+              bottom: 5.0,
+            ),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              onTap: () {
+                if (key.currentState?.hasDrawer == true) {
+                  if (key.currentState?.isDrawerOpen == true) {
+                    key.currentState?.closeDrawer();
+                  } else {
+                    key.currentState?.openDrawer();
+                  }
+                }
+              },
+              child: Icon(
+                Icons.menu_rounded,
+                size: 20,
+                color: light,
+              ),
+            ),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+            child: Image.asset(
+              "assets/logo/logo_white.png",
+              height: 30,
+            ),
           ),
-        ),
         const Spacer(),
         Container(
           padding: const EdgeInsets.only(right: 20),

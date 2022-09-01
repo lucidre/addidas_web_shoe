@@ -1,4 +1,5 @@
 import 'package:addidas_web_shoe/controllers/menu_controller.dart';
+import 'package:addidas_web_shoe/helpers/responsiveness.dart';
 import 'package:addidas_web_shoe/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,14 @@ class AppDrawer extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            if (ResponsiveWidget.isSmallScreen(context))
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                child: Image.asset(
+                  "assets/logo/logo_white.png",
+                  height: 30,
+                ),
+              ),
             ...mainMenuItems
                 .map(
                   (item) => _DrawerIcon(
@@ -29,27 +38,22 @@ class AppDrawer extends StatelessWidget {
                     onTap: () {
                       controller.changeActiveItemTo(item.index);
                     },
-                    isExpanded: controller.hoverItem.value,
+                    isExpanded: ResponsiveWidget.isSmallScreen(context)
+                        ? true
+                        : controller.hoverItem.value,
                   ),
                 )
                 .toList(),
             const Spacer(),
-            const Divider(
-              color: Colors.white,
-              height: 1,
+            _DrawerIcon(
+              title: "Settings",
+              icon: Icons.settings_rounded,
+              isSelected: false,
+              onTap: () {},
+              isExpanded: ResponsiveWidget.isSmallScreen(context)
+                  ? true
+                  : controller.hoverItem.value,
             ),
-            _DrawerIcon(
-                title: "Settings",
-                icon: Icons.settings_rounded,
-                isSelected: false,
-                onTap: () {},
-                isExpanded: false),
-            _DrawerIcon(
-                title: "Log Out",
-                icon: Icons.logout_rounded,
-                isSelected: false,
-                onTap: () {},
-                isExpanded: false),
           ]),
         ),
       );

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:addidas_web_shoe/pages/details/details.dart';
-import 'package:addidas_web_shoe/pages/home/home_large.dart';
+import 'package:addidas_web_shoe/pages/home/home.dart';
 import 'package:addidas_web_shoe/routing/routes.dart';
 import 'package:flutter/material.dart';
 
