@@ -2,12 +2,17 @@ import 'package:addidas_web_shoe/constants/style.dart';
 import 'package:addidas_web_shoe/controllers/home_controller.dart';
 import 'package:addidas_web_shoe/controllers/menu_controller.dart';
 import 'package:addidas_web_shoe/controllers/navigation_controller.dart';
+import 'package:addidas_web_shoe/firebase_options.dart';
 import 'package:addidas_web_shoe/layout.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(NavigationController());
   Get.put(HomeController());
   Get.put(MenuController());
